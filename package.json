@@ -1,0 +1,17 @@
+{
+  "name": "be_iron_rural",
+  "version": "1.0.0",
+  "description": "Project 3 from Ironhack",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development nodemon app.js",
+    "staging": "NODE_ENV=staging nodemon app.js",
+    "prod": "NODE_ENV=production nodemon app.js"
+  },
+  "author": "Joao Paulo Juliatti",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  }
+}
