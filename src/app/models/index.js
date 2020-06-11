@@ -36,8 +36,8 @@ Object.keys(db).forEach(modelName => {
 
 sequelize
   .authenticate()
-  .then(() => process.env.NODE_ENV !== 'local' && logger.info('[postgresql] connection established successfully'))
-  .catch(error => process.env.NODE_ENV !== 'local' && logger.error(`[postgresql] Unable to connect to the database: ${error}`))
+  .then(() => logger.info('[postgresql] connection established successfully'))
+  .catch(error => logger.error(`[postgresql] Unable to connect to the database: ${error}`))
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

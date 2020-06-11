@@ -6,7 +6,7 @@ const { logger } = require('./src/helpers')
  
 const app = express()
 
-// require('./src/app/models')
+require('./src/app/models')
 // require('./src/app/schemas')
 require('./src/app/middlewares/requestLogger')(app)
 // require('./src/routes')(app)
