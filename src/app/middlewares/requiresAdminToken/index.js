@@ -1,4 +1,4 @@
-const { errors } = require('../../constants')
+const { errorConstants } = require('../../constants')
 const { auth } = require('../../../config/keys')
 const { responseErrorHandler } = require('../../../helpers')
 const { NotAuthorizedError } = require('../../errors')
@@ -16,7 +16,7 @@ const { NotAuthorizedError } = require('../../errors')
 async function requiresAdminToken(req, res, next) {
   try {
     const authHeader = req.headers.authorization
-    if (authHeader !== auth.adminToken) throw new NotAuthorizedError(errors.auth.invalidToken)
+    if (authHeader !== auth.adminToken) throw new NotAuthorizedError(errorConstants.auth.invalidToken)
 
     return next()
   } catch (error) {

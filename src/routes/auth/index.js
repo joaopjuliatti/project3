@@ -1,21 +1,25 @@
-const { passwordlessLoginMiddleware } = require('../../app/middlewares')
+const { requiresAdminToken } = require('../../app/middlewares')
 const { authControler } = require('../../app/controllers')
     
 module.exports = app => {
     /**
-     * @api {post} /cpf Create a CPF if no exists
-     * @apiParam {String} data - CPF string
+     * @api {post} /auth/login Create a CPF if no exists
+     * @apiParam {String} data - email string
+     * @apiParam {String} data - password string
      *
-     * @apiName Create
-     * @apiGroup CPF
+     * @apiName Auth
+     * @apiGroup Login
      */
     app.post('/auth/login', authControler.login)
         /**
-     * @api {post} /cpf Create a CPF if no exists
-     * @apiParam {String} data - CPF string
+     * @api {post} /auth/signup Create a User if no exists
+     * @apiParam {String} data - email string
+     * @apiParam {String} data - password string
+     * @apiParam {String} data - name string
+     * @apiParam {String} data - cpf string
      *
-     * @apiName Create
-     * @apiGroup CPF
+     * @apiName Auth
+     * @apiGroup Sign-up
      */
-    app.post('/auth/signup', passwordlessLoginMiddleware, authControler.signup)
+    app.post('/auth/signup', requiresAdminToken, authControler.signup)
 }
