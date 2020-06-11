@@ -14,25 +14,25 @@ module.exports = {
         allowNull: false
       },
       encryptedPassword: {
-        type: DataTypes.STRING(1024),
+        type: Sequelize.STRING(1024),
         allowNull: false
       },
       name: {
-        type: DataTypes.STRING(128),
+        type: Sequelize.STRING(128),
         allowNull: false
       },
       cpf: {
-        type: DataTypes.STRING(11),
+        type: Sequelize.STRING(11),
         allowNull: false,
         unique: true
       },
       active: {
-        type: DataTypes.BOOLEAN,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
         defaultValue: true
       },
       accessLevel: {
-        type: DataTypes.ENUM('admin', 'manager', 'guest'),
+        type: Sequelize.ENUM('admin', 'manager', 'guest'),
         allowNull: false,
         defaultValue: 'admin'
       },
