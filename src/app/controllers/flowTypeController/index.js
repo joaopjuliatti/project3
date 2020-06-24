@@ -1,6 +1,6 @@
 const db = require('../../models');
 const { responseErrorHandler } = require('../../../helpers')
-const { NotFoundError, BodyPropertyError} = require('../../errors')
+const { NotFoundError, BodyPropertyError } = require('../../errors')
 const moment = require('moment')
 
  module.exports =  {
@@ -8,20 +8,28 @@ const moment = require('moment')
         try {
             const { name } = req.body
 
-            await db.FlowType.create({
-              name
-            })
+            const flowType = await db.FlowType.findOne({where: {name}})
 
-            res.status(200).json({ message: `FlowType cadastrado` });
-            
+            if(!flowType){
+              await db.FlowType.create({
+                name
+              })
+  
+              res.status(200).json({ message: `FlowType cadastrado` });
+            }else{
+              if(flowType.active) throw new BodyPropertyError('FlowType já está cadastrado')
+                await flowType.update({active:true})
+                return res.status(200).json({ message: `FlowType atualizado` });
+            }
+
         } catch (error) {
           responseErrorHandler(error, res, req)
         }
      },
 
-  desactive : async (req, res) => {
+    deactivate : async (req, res) => {
     try {
-      const {  FlowTypeId } = req.body;
+      const { FlowTypeId } = req.body;
 
       const flowType = await db.FlowType.findByPk(FlowTypeId);
 

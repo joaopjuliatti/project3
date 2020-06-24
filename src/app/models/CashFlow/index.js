@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
   CashFlow.associate = models => {
     CashFlow.belongsTo(models.Farm)
-    CashFlow.hasMany(models.FlowType)
+    CashFlow.belongsTo(models.FlowType)
 }
 
 

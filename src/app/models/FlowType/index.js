@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
   const FlowType = sequelize.define('FlowType', getProperties(DataTypes))
 
   FlowType.associate = models => {
-    FlowType.belongsTo(models.CashFlow)
+    FlowType.hasMany(models.CashFlow)
 }
 
   return FlowType

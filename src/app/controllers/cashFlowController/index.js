@@ -7,7 +7,7 @@ const  Big =require('big-js')
  module.exports =  {
     create : async (req, res) => {
         try {
-            const { FarmId, FlowTypeId, value, isExpenses } = req.body
+            const { FarmId, FlowTypeId, isExpenses } = req.body
 
             const farm = await db.Farm.findByPk(FarmId,{attributes:['id','UserId']})
 
@@ -19,8 +19,9 @@ const  Big =require('big-js')
 
             const receiveOrPaidAt  = moment(req.body.receiveOrPaidAt,'DD-MM-YYYY')
 
+            const value = isExpenses ? new Big(req.body.value).times(-1) : new Big(req.body.value)
             await db.CashFlow.create({
-              value: isExpenses ? new Big(value).time(-1) : value,
+              value,
               FarmId,
               FlowTypeId,
               receiveOrPaidAt,
@@ -41,15 +42,22 @@ const  Big =require('big-js')
 
       if(!farm) throw new NotFoundError('Fazenda não encontrada')
 
-      const cashFlows = await db.CashFlow.findAll({ where : { FarmId } });
+      const cashFlows = await db.CashFlow.findAll({ where : { FarmId }, order:[['FlowTypeId','asc']] });
   
       if(!cashFlows.length) throw new NotFoundError('Nenhum Fluxo de caixa encontrado')
 
-      return res.status(200).json({animals})
+      return res.status(200).json({cashFlows})
+    } catch (error) {
+      responseErrorHandler(error, res, req)
+    }
+  },
+
+  delete : async (req, res) => {
+    try {
+
     } catch (error) {
       responseErrorHandler(error, res, req)
     }
   }
-
 }
 
