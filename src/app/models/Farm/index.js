@@ -21,6 +21,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Farm.associate = models => {
     Farm.belongsTo(models.User)
+    Farm.hasMany(models.Animal)
 }
 
 //   require('./staticFunctions')(sequelize, IncomeDeclaration)

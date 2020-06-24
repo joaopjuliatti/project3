@@ -5,7 +5,7 @@ const { logger } = require('../../../helpers');
  module.exports =  {
     create : async (req, res) => {
       const { UserId, zipcode, name, street, number, complement, district, city, state } = req.body
-      console.log(zipcode)
+      
       logger.info(`Creating new Farm for UserId:${UserId}`)
 
       await db.Farm.create({ UserId, zipcode, name, street, number, complement, district, city, state});

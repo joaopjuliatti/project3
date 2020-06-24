@@ -1,7 +1,7 @@
-const { errors } = require('../../constants')
+const { errorConstants } = require('../../constants')
 
 class UnknownError extends Error {
-  constructor(message = errors.defaultMessage) {
+  constructor(message = errorConstants.defaultMessage) {
     super(message)
     this.name = 'UnknownError'
     this.message = message
