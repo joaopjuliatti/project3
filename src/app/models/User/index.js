@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', getProperties(DataTypes))
 
   User.associate = models => {
-
+    User.hasMany(models.Farm)
 }
 
 //   require('./staticFunctions')(sequelize, IncomeDeclaration)

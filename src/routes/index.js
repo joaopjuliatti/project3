@@ -1,3 +1,4 @@
 module.exports = app =>{
-    require('./auth')(app)
+    app.use('/auth',require('./auth'))
+    app.use('/farm',require('./farm'))
 }

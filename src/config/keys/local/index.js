@@ -1,6 +1,6 @@
 module.exports = {
   auth: {
-    adminToken :  process.env.LOCAL_ADMIN_TOKEN
+    adminToken :  process.env.LOCAL_ADMIN_TOKEM
   }
-  }
+}
   
