@@ -18,8 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     AnimalHistory.belongsTo(models.Animal)
 }
 
-//   require('./staticFunctions')(sequelize, IncomeDeclaration)
-//   require('./instanceFunctions')(sequelize, IncomeDeclaration)
 
   return AnimalHistory
 }

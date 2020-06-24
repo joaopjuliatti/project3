@@ -24,8 +24,6 @@ module.exports = (sequelize, DataTypes) => {
     Farm.hasMany(models.Animal)
 }
 
-//   require('./staticFunctions')(sequelize, IncomeDeclaration)
-//   require('./instanceFunctions')(sequelize, IncomeDeclaration)
 
   return Farm
 }
