@@ -15,7 +15,7 @@ const getProperties = DataTypes => {
         type: DataTypes.INTEGER,
         allowNull: true
       },
-      receiveOrPaidAts: {
+      receiveOrPaidAt: {
         allowNull: false,
         type: DataTypes.DATE
       },

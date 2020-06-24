@@ -31,7 +31,7 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DECIMAL(10, 2)
       },
-      receiveOrPaidAts: {
+      receiveOrPaidAt: {
         allowNull: false,
         type: Sequelize.DATE
       },
