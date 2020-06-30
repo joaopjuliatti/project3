@@ -2,7 +2,7 @@ const db = require('../../models');
 const { responseErrorHandler } = require('../../../helpers')
 const { NotFoundError, BodyPropertyError} = require('../../errors')
 const moment = require('moment')
-const  Big =require('big-js')
+const  Big = require('big-js')
 
  module.exports =  {
     create : async (req, res) => {
@@ -20,6 +20,7 @@ const  Big =require('big-js')
             const receiveOrPaidAt  = moment(req.body.receiveOrPaidAt,'DD-MM-YYYY')
 
             const value = isExpenses ? new Big(req.body.value).times(-1) : new Big(req.body.value)
+            
             await db.CashFlow.create({
               value,
               FarmId,

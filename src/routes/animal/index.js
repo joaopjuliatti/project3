@@ -31,4 +31,14 @@ router.post('/all', requiresAdminToken, animalController.all)
 router.post('/sell', requiresAdminToken, animalController.sell)
 
 
+/**
+ * @api {post} /animal/repurchase
+ * @apiParam {Number} data - FarmId number 
+ * @apiParam {Number} data - RealId number 
+ * @apiName Farm
+ * @apiGroup repurchase
+ */
+router.post('/repurchase', requiresAdminToken, animalController.repurchase)
+
+
 module.exports = router
