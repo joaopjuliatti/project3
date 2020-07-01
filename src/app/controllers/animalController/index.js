@@ -11,14 +11,21 @@ const moment = require('moment')
             const farm = await db.Farm.findByPk(FarmId,{attributes:['id','UserId']})
 
             if(!farm) throw new NotFoundError('Fazenda não encontrada')
+            console.log(req.body.boughtAt)
+            const boughtAt  = moment(req.body.boughtAt,'YYYY-MM-DD')
 
-            const boughtAt  = moment(req.body.boughtAt,'DD-MM-YYYY')
-
-            await db.Animal.create({
+            const animal = await db.Animal.create({
               FarmId: farm.id,
               UserId: farm.UserId,
               RealId: req.body.RealId,
               boughtAt,
+              initialAge: req.body.initialAge
+            })
+
+            await db.AnimalHistory.create({
+              AnimalId: animal.id,
+              weightedAt:boughtAt,
+              weight: req.body.initialWeight,
               initialAge: req.body.initialAge
             })
 
@@ -31,13 +38,11 @@ const moment = require('moment')
 
   all : async (req, res) => {
     try {
-      const {  FarmId, isSold  } = req.body;
+      const {  FarmId  } = req.params;
 
       const animals = await db.Animal.findAll({
-        where :{ FarmId } });
+        where :{ FarmId, active:true } });
     
-      if(!animals.length) throw new NotFoundError('Nenhum animal encontrado')
-
       const animaisFormated = await Promise.all(animals.map( async animal=>{
         const tempObject = {
           id: animal.dataValues.id,
@@ -61,7 +66,7 @@ const moment = require('moment')
         return tempObject
       }))
 
-      return res.status(200).json({animaisFormated})
+      return res.status(200).json({ animals:animaisFormated})
     } catch (error) {
       responseErrorHandler(error, res, req)
     }
@@ -69,16 +74,16 @@ const moment = require('moment')
   
   sell : async (req, res) => {
     try {
-      const { RealId, FarmId } = req.body;
+      const { AnimalId } = req.body;
 
-      const animal = await db.Animal.findOne({ where: { RealId, FarmId } });
-
+      const animal = await db.Animal.findByPk(AnimalId,{ where:{active:true}});
+      console.log(animal)
       if(!animal) throw new NotFoundError('Animal não encontrado')
 
       if(animal.status ==='sold') throw new BodyPropertyError('Animal já foi vendido anteriormente')
       
       await animal.update({status:'sold'})
-      return res.status(200).json({message:`Animal com identificador ${RealId} foi atualizado para vendido com sucesso`})
+      return res.status(200).json({message:`Animal com identificador ${animal.RealId} foi atualizado para vendido com sucesso`})
     } catch (error) {
       responseErrorHandler(error, res, req)
     }
@@ -88,18 +93,35 @@ const moment = require('moment')
     try {
       const { AnimalId } = req.body;
 
-      const animal = await db.Animal.findByPk(AnimalId);
+      const animal = await db.Animal.findByPk(AnimalId,{ where:{active:true}});
 
       if(!animal) throw new NotFoundError('Animal não encontrado')
 
       if(animal.status !=='sold') throw new BodyPropertyError('Animal não pode ser recomprado')
       
       await animal.update({status:'fattening'})
-      return res.status(200).json({message:`Animal com identificador ${RealId} foi atualizado para vendido com sucesso`})
+
+      return res.status(200).json({message:`Animal com identificador ${animal.RealId} foi atualizado recomprado com sucesso`})
     } catch (error) {
       responseErrorHandler(error, res, req)
     }
   },
 
+  deactive : async (req, res) => {
+    try {
+      const { AnimalId } = req.body;
+
+      const animal = await db.Animal.findByPk(AnimalId);
+
+      if(!animal) throw new NotFoundError('Animal não encontrado')
+
+      if(!animal.active) throw new BodyPropertyError('Animal já desativado')
+      
+      await animal.update({active:false})
+      return res.status(200).json({message:`Animal desativado com sucesso`})
+    } catch (error) {
+      responseErrorHandler(error, res, req)
+    }
+  },
 }
 

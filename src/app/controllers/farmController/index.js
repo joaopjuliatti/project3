@@ -14,17 +14,17 @@ const { logger } = require('../../../helpers');
   },
 
   all : async (req, res) => {
-    const {  UserId  } = req.body;
 
-    console.log(UserId)
-
-    const farms = await db.Farm.findAll({ where : {UserId} });
+    const farms = await db.Farm.findAll({ 
+      where : {UserId: req.user.userId},
+      order:[['updatedAt','asc']]
+     });
 
     if (!farms.length) {
       res.status(401).json({ message: 'Fazendas não encontradas para este usuário' });
       return;
     }
-    console.log(farms)
+
     return res.status(200).json({farms})
   }
 }

@@ -1,4 +1,4 @@
-const { requiresAdminToken } = require('../../app/middlewares')
+const { loginMiddleware } = require('../../app/middlewares')
 const { cashFlowController } = require('../../app/controllers')
 const router = require('express-promise-router')()
     
@@ -8,7 +8,7 @@ const router = require('express-promise-router')()
  * @apiName CashFlow
  * @apiGroup create
  */
-router.post('/create', requiresAdminToken, cashFlowController.create)
+router.post('/create', loginMiddleware, cashFlowController.create)
 
 /**
  * @api {post} /cash-flow/all
@@ -16,7 +16,7 @@ router.post('/create', requiresAdminToken, cashFlowController.create)
  * @apiName CashFlow
  * @apiGroup all
  */
-router.post('/all', requiresAdminToken, cashFlowController.all)
+router.post('/all', loginMiddleware, cashFlowController.all)
 
 
 

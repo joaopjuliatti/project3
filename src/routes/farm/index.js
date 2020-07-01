@@ -1,4 +1,4 @@
-const { requiresAdminToken } = require('../../app/middlewares')
+const { loginMiddleware } = require('../../app/middlewares')
 const { farmController } = require('../../app/controllers')
 const router = require('express-promise-router')()
     
@@ -16,14 +16,14 @@ const router = require('express-promise-router')()
  * @apiName Farm
  * @apiGroup create
  */
-router.post('/create', requiresAdminToken, farmController.create)
+router.post('/create', loginMiddleware, farmController.create)
 
 /**
  * @api {post} /farm/all
  * @apiParam {Number} data - UserId number 
  * @apiName Farm
  */
-router.post('/all', requiresAdminToken, farmController.all)
+router.get('/all', loginMiddleware, farmController.all)
 
 
 

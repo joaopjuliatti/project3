@@ -21,6 +21,7 @@ const getProperties = DataTypes => {
       },
       pasture: {
         allowNull: false,
+        defaultValue: 0,
         type: DataTypes.INTEGER
       }
     }

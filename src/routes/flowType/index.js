@@ -1,4 +1,4 @@
-const { requiresAdminToken } = require('../../app/middlewares')
+const { loginMiddleware } = require('../../app/middlewares')
 const { flowTypeController } = require('../../app/controllers')
 const router = require('express-promise-router')()
     
@@ -8,7 +8,7 @@ const router = require('express-promise-router')()
  * @apiName FlowType
  * @apiGroup create
  */
-router.post('/create', requiresAdminToken, flowTypeController.create)
+router.post('/create', loginMiddleware, flowTypeController.create)
 
 /**
  * @api {post} /flow-type/deactivate
@@ -16,7 +16,7 @@ router.post('/create', requiresAdminToken, flowTypeController.create)
  * @apiName flow-type
  * @apiGroup deactivate
  */
-router.post('/deactivate', requiresAdminToken, flowTypeController.deactivate)
+router.post('/deactivate', loginMiddleware, flowTypeController.deactivate)
 
 
 

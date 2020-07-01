@@ -1,4 +1,4 @@
-const { requiresAdminToken } = require('../../app/middlewares')
+const { loginMiddleware } = require('../../app/middlewares')
 const { animalController } = require('../../app/controllers')
 const router = require('express-promise-router')()
     
@@ -11,15 +11,15 @@ const router = require('express-promise-router')()
  * @apiName Farm
  * @apiGroup create
  */
-router.post('/create', requiresAdminToken, animalController.create)
-
+router.post('/create', loginMiddleware, animalController.create)
+    
 /**
  * @api {post} /farm/all
  * @apiParam {Number} data - FarmId number 
  * @apiName Farm
  * @apiGroup all
  */
-router.post('/all', requiresAdminToken, animalController.all)
+router.get('/:FarmId/all', loginMiddleware, animalController.all)
 
 /**
  * @api {post} /farm/sell
@@ -28,7 +28,7 @@ router.post('/all', requiresAdminToken, animalController.all)
  * @apiName Farm
  * @apiGroup sell
  */
-router.post('/sell', requiresAdminToken, animalController.sell)
+router.put('/sell', loginMiddleware, animalController.sell)
 
 
 /**
@@ -38,7 +38,17 @@ router.post('/sell', requiresAdminToken, animalController.sell)
  * @apiName Farm
  * @apiGroup repurchase
  */
-router.post('/repurchase', requiresAdminToken, animalController.repurchase)
+router.put('/repurchase', loginMiddleware, animalController.repurchase)
+
+
+/**
+ * @api {post} /animal/deactive
+ * @apiParam {Number} data - FarmId number 
+ * @apiParam {Number} data - RealId number 
+ * @apiName Farm
+ * @apiGroup repurchase
+ */
+router.put('/deactive', loginMiddleware, animalController.deactive)
 
 
 module.exports = router

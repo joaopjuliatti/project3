@@ -1,6 +1,6 @@
 const db = require('../../models');
-const jwt = require('jsonwebtoken');
 const { passwordManager, logger} = require('../../../helpers');
+const { tokenEncryptionService } = require('../../services');
 
 
  module.exports =  {
@@ -37,23 +37,11 @@ const { passwordManager, logger} = require('../../../helpers');
 
       return;
     }
-
-    const token = jwt.sign(
-      { name: user.name, email: user.email, id: user.id },
-      process.env.JWT_USER_TOKEN_HASH,
-      { expiresIn: process.env.JTW_USER_TOKEN_EXPIRATION },
-    );
-
-    const refresh_token = jwt.sign(
-      { name: user.name, email: user.email, id: user._id, token },
-      process.env.JWT_USER_TOKEN_HASH,
-      { expiresIn: process.env.JTW_USER_REFRESH_TOKEN_EXPIRATION },
-    );
+    const token = tokenEncryptionService.encrypt({ name: user.name, email: user.email, userId: user.id })
 
     res.status(200).json({
       type: 'Bearer',
       token,
-      refresh_token,
     });
   }
 }

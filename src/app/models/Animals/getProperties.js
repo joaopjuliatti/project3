@@ -32,6 +32,11 @@ const getProperties = DataTypes => {
       boughtAt: {
         allowNull: false,
         type: DataTypes.DATE
+      },
+      active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
       }
     }
   }
