@@ -26,6 +26,19 @@ const moment = require('moment')
           responseErrorHandler(error, res, req)
         }
      },
+     all : async (req, res) => {
+      try {
+          const flowTypes = await db.FlowType.findAll({
+            where: {active: true},
+            order:[['name','desc']]
+          })
+
+          res.status(200).json({ flowTypes });
+
+      } catch (error) {
+        responseErrorHandler(error, res, req)
+      }
+   },
 
     deactivate : async (req, res) => {
     try {

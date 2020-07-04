@@ -18,6 +18,13 @@ router.post('/create', loginMiddleware, flowTypeController.create)
  */
 router.post('/deactivate', loginMiddleware, flowTypeController.deactivate)
 
+/**
+ * @api {get} /flow-type/all
+ * @apiName flow-type
+ * @apiGroup all
+ */
+router.get('/all', loginMiddleware, flowTypeController.all)
+
 
 
 module.exports = router

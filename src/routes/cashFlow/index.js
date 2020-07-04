@@ -16,8 +16,15 @@ router.post('/create', loginMiddleware, cashFlowController.create)
  * @apiName CashFlow
  * @apiGroup all
  */
-router.post('/all', loginMiddleware, cashFlowController.all)
+router.post('/:FarmId/all', loginMiddleware, cashFlowController.all)
 
+/**
+ * @api {post} /cash-flow/delete Create
+ * @apiParam {String} data - CashFlowId
+ * @apiName CashFlow
+ * @apiGroup delete
+ */
+router.post('/delete', loginMiddleware, cashFlowController.delete)
 
 
 module.exports = router

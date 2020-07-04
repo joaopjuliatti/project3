@@ -22,6 +22,10 @@ const getProperties = DataTypes => {
       value: {
         allowNull: false,
         type: DataTypes.DECIMAL(10, 2)
+      },
+      description: {
+        allowNull: true,
+        type: DataTypes.STRING(1024)
       }
     }
   }
