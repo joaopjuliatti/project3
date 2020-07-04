@@ -12,6 +12,7 @@ const sequelize = new Sequelize({
   database: postgresConfig.database,
   username: postgresConfig.username,
   password: postgresConfig.password,
+  dialectOptions: postgresConfig.dialectOptions,
   ...postgresConfig.options
 })
 

@@ -1,6 +1,8 @@
+require('dotenv').config()
 const local = require('./local')
 const development = require('./development')
 const production = require('./production')
+
 
 switch (process.env.NODE_ENV) {
   case 'local':
@@ -13,3 +15,5 @@ switch (process.env.NODE_ENV) {
     module.exports = production
     break
 }
+
+
