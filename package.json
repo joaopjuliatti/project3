@@ -9,6 +9,7 @@
     "dev": "NODE_ENV=development nodemon app.js",
     "staging": "NODE_ENV=staging nodemon app.js",
     "prod": "NODE_ENV=production nodemon app.js",
+    "console:dev": "NODE_ENV=development node --experimental-repl-await ./console.js",
     "format": "prettier \"./src/**/*.js\" --write",
     "precommit": "npm run format:staged & npm run madge",
     "madge": "./node_modules/madge/bin/cli.js --circular ./"
